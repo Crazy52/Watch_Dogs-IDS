@@ -3,9 +3,7 @@ clear
 echo .____________________________.
 echo ! Intrusion Detection System !
 echo !----------------------------!
-ip=$(curl -s checkip.dyndns.org|sed -e 's/.*Current IP Address: //' -e 's/<.*$//')
-echo "IP:" $ip
-echo Listing Availible Interfaces
+echo "Listing Availible Interfaces"
 echo ----
 ifconfig -a | sed 's/[ \t].*//;/^$/d'
 echo ----
@@ -17,4 +15,4 @@ case "$save" in
   * ) write="" && file="" && echo "Writing Disabled";;
 esac
 echo Starting IDS on $iface
-tshark -i $iface -n -P -f "dst host $ip and udp src port 3658 and udp dst port not 11005" $write $file
+tshark -i $iface -n -P -f "length >= 100 and udp src port 3658 and udp dst port not 11005" $write $file
