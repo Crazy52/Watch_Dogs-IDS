@@ -17,4 +17,4 @@ case "$save" in
   * ) write="" && file="" && echo "Writing Disabled";;
 esac
 echo Starting IDS on $iface
-tshark -i $iface -n -P -f "udp src port 3658 and udp dst port not 11005 and src host $ip" $write $file
+tshark -i $iface -n -P -f "dst host $ip and udp src port 3658 and udp dst port not 11005" $write $file
