@@ -15,4 +15,4 @@ case "$save" in
   * ) write="" && file="" && echo "Writing Disabled";;
 esac
 echo Starting IDS on $iface
-tshark -i $iface -n -P -f "length >= 100 and udp src port 3658 and udp dst port not 11005" $write $file
+tshark -i $iface -n -P -T fields -e frame.number -e ip.src -f "length >= 100 and udp src port 3658 and udp dst port not 11005" $write $file
